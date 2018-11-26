@@ -1,5 +1,5 @@
 <template>
-    <div class="face">
+    <div class="face" v-if="face.id">
         <img :src="image" alt="">
     </div>
 </template>
@@ -10,8 +10,6 @@ export default {
     beforeMount() {
         /*primeira face a ser mostrada: marca do robo*/
         this.face = this.$store.getters.getFace(9)
-        
-        
     },
     data() {
         return {
@@ -19,9 +17,11 @@ export default {
         }
     },
     mounted() {
-        this.spoke(this.$store.state.timeShownBrand)
+        this.spoke(this.$store.state.timeShownBrand, 9).then(()=> {
+            this.spoke(this.$store.state.timeNoAction, 10)
+        })
 
-        this.spoke(this.$store.state.timeNoAction, 10)
+        
         
         
 
@@ -58,14 +58,15 @@ export default {
         /*fala da face*/
         textToSpeech(time, f) {
             return new Promise(resolve => {
+                
                 if (!('speechSynthesis' in window)) {
                     alert('Sem suporte a fala!')
                     return false
                 }
 
-                if (!this.face.speech) {
-                    return false
-                }
+                // if (!this.face.speech) {
+                //     return false
+                // }
                 let voices = window.speechSynthesis.getVoices();
                 let msg = new SpeechSynthesisUtterance();
                 /* google voice male */
@@ -73,19 +74,17 @@ export default {
                 
                 /*terminou a fala*/
                 msg.onend = () => {
-                    console.log(time)
-                    resolve(true)
+                    if (time) {
+                        setTimeout(() => {
+                            resolve(true)
+                        }, time)   
+                    }
                 }
-                if (time && f) {
-                    setTimeout(() => {
-                        this.face = this.$store.getters.getFace(f)
-                        speechSynthesis.speak(msg)
-                        msg.text = this.face.speech;
-                    }, time)
-                } else {
-                    msg.text = this.face.speech;
-                    speechSynthesis.speak(msg)
+                if (f) {
+                    this.face = this.$store.getters.getFace(f)
                 }
+                msg.text = this.face.speech;
+                speechSynthesis.speak(msg)
                 
             })
         },

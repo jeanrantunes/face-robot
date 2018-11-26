@@ -6,7 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     timeIntro: 1000,
-    timeShownBrand: 3000,
+    timeShownBrand: 10000,
     timeNoAction: 1000,
     faces: [
       {
