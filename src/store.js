@@ -5,8 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    timeIntro: 1000,
-    timeShownBrand: 10000,
+    timeIntro: 3000,
+    timeShownBrand: 3000,
     timeNoAction: 1000,
     faces: [
       {
@@ -26,7 +26,7 @@ export default new Vuex.Store({
       {
           id: 3,
           path: 'face_confirmation_input.svg',
-          emotion: 'I understood',
+          emotion: 'Ready',
           state: 'Ready',
           speech: 'Ok!'
       },
@@ -40,16 +40,16 @@ export default new Vuex.Store({
       {
           id: 5,
           path: 'face_little_smile.svg',
-          emotion: 'Deception',
+          emotion: 'Happy',
           state: 'In action',
-          speech: false
+          speech: ''
       },
       {
           id: 6,
           path: 'face_neutral.svg',
           emotion: 'Neutral',
           state: false,
-          speech: false
+          speech: ''
       },
       {
           id: 7,
@@ -78,9 +78,31 @@ export default new Vuex.Store({
         emotion: 'Happy',
         state: 'Stand bye',
         speech: 'I AM READY! WHAT DO YOU WANT'
-    },
+      },
+      {
+        id: 11,
+        path: 'face_smile.svg',
+        emotion: 'Happy',
+        state: 'I understood',
+        speech: 'I understood'
+      },
+      {
+        id: 12,
+        path: 'face_big_smile.svg',
+        emotion: 'Very happy',
+        state: 'Sucess',
+        speech: 'LETS DO IT!!'
+      },
+      {
+        id: 13,
+        path: 'face_awake.svg',
+        emotion: 'awake',
+        state: 'Finished',
+        speech: 'DO YOU WANT ANYTHING ELSE?'
+      },
     ],
-    currentFace: 1
+    lang: 'en-US',
+    commands: ['go ahead', 'turn left', 'turn right', 'hello teta']
   },
   getters: {
     getFace: state => id => {

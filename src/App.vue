@@ -31,7 +31,7 @@ export default {
     isReady() {
       setTimeout(() => {
         this.loader = false
-      }, 1000)
+      }, 4000)
     },
     showFace() {
       this.showFaceComp = true
