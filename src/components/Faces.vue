@@ -60,7 +60,7 @@ export default {
             console.log('Error connecting to websocket server: ', error)
         })
 
-        this.testStr = new ROSLIB.Topic({
+        this.topicRos = new ROSLIB.Topic({
             ros : ros,
             name : '/walk',
             messageType : 'std_msgs/String'
@@ -70,10 +70,10 @@ export default {
             data : 'theta'
         });
 
-        this.testStr.publish(strin);
+        this.topicRos.publish(strin);
 
-        this.testStr.subscribe(function(message){
-            console.log('Received message on' + testStr.name + ': ' + message.data);
+        this.topicRos.subscribe(function(message){
+            console.log('Received message on' + this.topicRos.name + ': ' + message.data);
             //testStr.unsubscribe();
         });
     },
@@ -89,7 +89,7 @@ export default {
             )} ;`,
             startTime: 0,
             timeout: 0,
-            topicRos
+            topicRos: {}
         };
     },
     watch: {
