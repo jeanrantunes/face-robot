@@ -16,7 +16,6 @@ export default {
             this.$emit('hide-intro')
         }, this.$store.state.timeIntro)
     },
-    
 }
 </script>
 <style lang="scss" scoped>

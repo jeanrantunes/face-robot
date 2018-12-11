@@ -3,12 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve --https",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "bootstrap-vue": "^2.0.0-rc.11",
+    "eventemitter2": "^5.0.1",
+    "roslib": "git://github.com/RobotWebTools/roslibjs.git#develop",
     "vue": "^2.5.17",
     "vuex": "^3.0.1"
   },

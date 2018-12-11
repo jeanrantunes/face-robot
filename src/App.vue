@@ -1,10 +1,16 @@
 <template>
   <div id="app">
-    <img src="./assets/loader.svg" v-if="loader" class="loader">
 
-    <intro v-else @hide-intro="showFace" v-show="!showFaceComp"></intro>
+    <button v-if="btnStart" class="btn-start" @click="start">Start</button>
+    
+    <div class="content" v-else>
+      <img src="./assets/loader.svg" v-if="loader" class="loader">
 
-    <faces v-if="showFaceComp"></faces>
+      <intro v-else @hide-intro="showFace" v-show="!showFaceComp"></intro>
+
+      <faces v-if="showFaceComp"></faces>
+    </div>
+
   </div>
 </template>
 <script>
@@ -17,12 +23,10 @@ export default {
     Intro,
     Faces
   },
-  beforeMount() {
-    this.isReady()
-  },
   data() {
     return {
       loader: true,
+      btnStart: true,
       showFaceComp: false
     }
   },
@@ -35,19 +39,39 @@ export default {
     },
     showFace() {
       this.showFaceComp = true
+    },
+    start() {
+      this.openFullscreen(document.querySelector('body'))
+      this.btnStart = false
+      this.isReady()
+    },
+    openFullscreen(elem) {
+      if (elem.mozRequestFullScreen) { /* Firefox */
+        elem.mozRequestFullScreen();
+      } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+        elem.webkitRequestFullscreen();
+      } else if (elem.msRequestFullscreen) { /* IE/Edge */
+        elem.msRequestFullscreen();
+      } else if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      }  
     }
   }
 }
 </script>
 
 <style lang="scss">
+
 body,
 html,
-#app {
+#app,
+.content {
   height: 100%;
 }
-body {
-  background-color: #232B29;
+body,
+:not(:root):-webkit-full-screen::backdrop {
+  background-color: #232B29 !important;
+  overflow: hidden;
 }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -59,8 +83,30 @@ body {
 }
 .loader {
   max-width: 500px;
+  width: 20vw;
   display: flex;
   height: 100%;
   margin: 0 auto;
+}
+.btn-start {
+  display: inline-block;
+  font-size: 30px;
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  text-align: center;
+  cursor: pointer;
+  color: #fff;
+  background-color: #4CAF50;
+  box-shadow: 0 9px #999;
+  &:hover,
+  &:focus {
+    outline: none;
+  }
+  &:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+  }
 }
 </style>
