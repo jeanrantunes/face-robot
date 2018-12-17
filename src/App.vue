@@ -1,10 +1,11 @@
 <template>
   <div id="app">
-
-    <button v-if="btnStart" class="btn-start" @click="start">Start</button>
+    <div v-if="btnStart" class="container-button">
+      <button class="btn-start" @click="start">Start</button>
+    </div>
     
     <div class="content" v-else>
-      <img src="./assets/loader.svg" v-if="loader" class="loader">
+      <img src="./assets/00_loading.gif" v-if="loader" class="loader">
 
       <intro v-else @hide-intro="showFace" v-show="!showFaceComp"></intro>
 
@@ -70,7 +71,7 @@ html,
 }
 body,
 :not(:root):-webkit-full-screen::backdrop {
-  background-color: #232B29 !important;
+  background-color: #282721 !important;
   overflow: hidden;
 }
 #app {
@@ -81,12 +82,27 @@ body,
   color: #fff;
   align-items: center;
 }
+.content {
+  display: flex;
+  align-self: center;
+  flex-flow: column;
+  justify-content: center;
+}
 .loader {
-  max-width: 500px;
-  width: 20vw;
+  max-width: 300px;
+  max-height: 300px;
+  width: auto;
+  height: auto;
   display: flex;
   height: 100%;
   margin: 0 auto;
+}
+.container-button {
+  display: flex;
+  height: 100%;
+  align-self: center;
+  justify-content: center;
+  flex-flow: column;
 }
 .btn-start {
   display: inline-block;
@@ -96,15 +112,16 @@ body,
   border-radius: 50%;
   text-align: center;
   cursor: pointer;
-  color: #fff;
-  background-color: #4CAF50;
+  color: #282721;
+  background-color: #FFE433;
   box-shadow: 0 9px #999;
+  margin: 0 auto;
   &:hover,
   &:focus {
     outline: none;
   }
   &:active {
-    background-color: #3e8e41;
+    background-color: #FFE433;
     box-shadow: 0 5px #666;
     transform: translateY(4px);
   }

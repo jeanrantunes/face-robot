@@ -1,9 +1,9 @@
 <template>
     <div class="logos">
-        <img src="../assets/logos/ufpel-logo.svg" alt="">
-        <img src="../assets/logos/ifsul-logo.svg" alt="">
-        <img src="../assets/logos/cy-logo.svg" alt="">
-        <img src="../assets/logos/freedom-logo.svg" alt="">
+        <img src="../assets/logos/logo-ufpel.svg" alt="">
+        <img src="../assets/logos/logo-ifsul.svg" alt="">
+        <img src="../assets/logos/logo-cyphy.svg" alt="">
+        <img src="../assets/logos/logo-freedom.svg" alt="">
     </div>
 </template>
 <script>

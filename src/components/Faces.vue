@@ -1,7 +1,7 @@
 <template>
     <div class="face" v-if="face.id">
         <img :src="image" alt="">
-        <h1 v-if="face.id == 9">{{ this.$store.state.name }}</h1>
+        <!-- <h1 v-if="face.id == 9">{{ this.$store.state.name }}</h1> -->
     </div>
 </template>
 <script>
@@ -199,6 +199,15 @@ export default {
             //this.recognition.stop();
             const self = this
             this.recognition.stop()
+
+            if (command == "stop") {
+                const str = new ROSLIB.Message({
+                    data : command
+                })
+                this.topicRos.publish(str)
+                return false
+            }
+
             if (!command) {
                 /*não entendeu*/
                 this.textToSpeech(undefined, 4).then(() => {
@@ -260,8 +269,12 @@ h1 {
   display: flex;
   img {
     display: flex;
-    width: 50vw;
+    max-width: 300px;
+    max-height: 300px;
+    width: auto;
+    height: auto;
     margin: 30px auto;
+    align-self: center;
   }
 }
 </style>
