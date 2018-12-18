@@ -97,22 +97,23 @@ export default {
             handler(val) {
                 if(val > 0) {
                     const self = this
-                    setTimeout(() => {
-                        /* mais de 10 segundo sem falar*/
-                        if ((new Date().getTime() - new Date(self.startTime)) / 1000 > 10) {
-                            self.recognition.stop()
-                            self.textToSpeech(2000, 7).then(() => {
-                                /*neutro*/
-                                self.textToSpeech(3000, 6).then(() => {
-                                    /*dorme*/
-                                    self.textToSpeech(3000, 8).then(() => {
-                                        self.startTime = 0
-                                        self.recognition.start()
-                                    })
-                                })
-                            })
-                        }
-                    }, 10000)
+                    // console.log(self.startTime)
+                    // setTimeout(() => {
+                    //     /* mais de 10 segundo sem falar*/
+                    //     if ((new Date().getTime() - new Date(self.startTime)) / 1000 > 10) {
+                    //         self.recognition.stop()
+                    //         self.textToSpeech(2000, 7).then(() => {
+                    //             /*neutro*/
+                    //             self.textToSpeech(3000, 6).then(() => {
+                    //                 /*dorme*/
+                    //                 self.textToSpeech(3000, 8).then(() => {
+                    //                     self.startTime = 0
+                    //                     self.recognition.start()
+                    //                 })
+                    //             })
+                    //         })
+                    //     }
+                    // }, 10000)
                 }
             }
         }
@@ -218,7 +219,7 @@ export default {
             }
             /*entendi*/
             
-            self.startTime = 0
+            self.startTime = new Date().getTime()
             
             
             self.textToSpeech(2000, 11).then(() => {
@@ -226,6 +227,7 @@ export default {
                 /*para de ouvir para realizar a acao*/
                 self.textToSpeech(2000, 12).then(() => {
                     /*da o comando para o ROS*/
+                    self.startTime = new Date().getTime()
                     var strin = new ROSLIB.Message({
                         data : command
                     })
@@ -234,13 +236,17 @@ export default {
                     self.textToSpeech(3000, 5).then(() => {
                         /*quando a ação é concluida. 
                         Deve ter alguma callback do ros confirmando a ação*/
-                        self.textToSpeech(3000, 2).then(() => {
+                        self.startTime = new Date().getTime()
+                        self.textToSpeech(2000, 2).then(() => {
                             /*acao terminada, mais alguma coisa?*/
+                            //self.recognition.start()
                             /*tempo de espera*/
-                            self.textToSpeech(2000, 13).then(() => {
-                                self.startTime = new Date().getTime()
-                                self.recognition.start()    
-                            })
+                            //self.startTime = new Date().getTime()
+                            self.startTime = new Date().getTime()
+                            self.recognition.start()
+                            // self.textToSpeech(2000, 13).then(() => {
+                                    
+                            // })
                         })
                     })
                 })
@@ -261,8 +267,8 @@ h1 {
   display: flex;
   img {
     display: flex;
-    max-width: 300px;
-    max-height: 300px;
+    max-width: 600px;
+    max-height: 600px;
     width: auto;
     height: auto;
     margin: 30px auto;
