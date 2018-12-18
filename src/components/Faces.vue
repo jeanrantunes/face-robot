@@ -219,35 +219,27 @@ export default {
             /*entendi*/
             
             self.startTime = 0
-            var strin = new ROSLIB.Message({
-                data : command
-            })
-            this.topicRos.publish(strin);
+            
             
             self.textToSpeech(2000, 11).then(() => {
                 /*fazer a ação*/
                 /*para de ouvir para realizar a acao*/
                 self.textToSpeech(2000, 12).then(() => {
                     /*da o comando para o ROS*/
+                    var strin = new ROSLIB.Message({
+                        data : command
+                    })
+                    self.topicRos.publish(strin);
                     /*durante a acao*/
                     self.textToSpeech(3000, 5).then(() => {
                         /*quando a ação é concluida. 
-                                    Deve ter alguma callback do ros confirmando a ação*/
+                        Deve ter alguma callback do ros confirmando a ação*/
                         self.textToSpeech(3000, 2).then(() => {
                             /*acao terminada, mais alguma coisa?*/
                             /*tempo de espera*/
                             self.textToSpeech(2000, 13).then(() => {
                                 self.startTime = new Date().getTime()
                                 self.recognition.start()    
-                                // self.textToSpeech(3000, 7).then(() => {
-                                //     /*neutro*/
-                                //     self.textToSpeech(3000, 6).then(() => {
-                                //         /*dorme*/
-                                //         self.textToSpeech(3000, 8).then(() => {
-                                //             this.recognition.start()
-                                //         })
-                                //     })
-                                // })
                             })
                         })
                     })
